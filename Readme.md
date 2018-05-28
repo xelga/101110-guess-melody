@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Олька Звонова](https://up.htmlacademy.ru/ecmascript/5/user/101110).
-* Наставник: `Неизвестно`.
+* Наставник: [Вадим Шевяков](https://htmlacademy.ru/profile/id574589) — бородаст, свитераст, программист.
 
 ---
 
