@@ -36,32 +36,34 @@ for (let i = 0; i < templates.length; i++) {
   screens.push(templates[i]);
 }
 
+let currentScreen = SCREEN_DEFAULT_NUMBER;
+
 const showScreen = (number) => {
-  main.innerHTML = screens[number].innerHTML;
-  main.className = screens[number].className;
-  return number;
-};
-
-let currentScreen = showScreen(SCREEN_DEFAULT_NUMBER);
-
-document.addEventListener(`keydown`, function (event) {
-  if (event.keyCode === ARROW_LEFT_KEYCODE && currentScreen > 0 && currentScreen < screens.length) {
-    currentScreen = showScreen(currentScreen - 1);
+  if (number >= 0 && number < screens.length) {
+    main.innerHTML = screens[number].innerHTML;
+    main.className = screens[number].className;
+    currentScreen = number;
   }
 
-  if (event.keyCode === ARROW_RIGHT_KEYCODE && currentScreen >= 0 && currentScreen < screens.length - 1) {
-    currentScreen = showScreen(currentScreen + 1);
+  return currentScreen;
+};
+
+showScreen(SCREEN_DEFAULT_NUMBER);
+
+document.addEventListener(`keydown`, function (event) {
+  if (event.keyCode === ARROW_LEFT_KEYCODE) {
+    showScreen(currentScreen - 1);
+  }
+
+  if (event.keyCode === ARROW_RIGHT_KEYCODE) {
+    showScreen(currentScreen + 1);
   }
 });
 
 arrowLeft.addEventListener(`click`, function () {
-  if (currentScreen > 0 && currentScreen < screens.length) {
-    currentScreen = showScreen(currentScreen - 1);
-  }
+  showScreen(currentScreen - 1);
 });
 
 arrowRight.addEventListener(`click`, function () {
-  if (currentScreen >= 0 && currentScreen < screens.length - 1) {
-    currentScreen = showScreen(currentScreen + 1);
-  }
+  showScreen(currentScreen + 1);
 });
