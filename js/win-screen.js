@@ -12,12 +12,13 @@ const template = `<section class="main main--result">
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
-const element = getElementFromTemplate(template);
-const replayButton = element.querySelector(`.main-replay`);
+export default () => {
+  const element = getElementFromTemplate(template);
+  const replayButton = element.querySelector(`.main-replay`);
 
-replayButton.addEventListener(`click`, () => {
-  renderScreen(welcomeScreen);
-});
+  replayButton.addEventListener(`click`, () => {
+    renderScreen(welcomeScreen);
+  });
 
-
-export default element;
+  return element;
+};

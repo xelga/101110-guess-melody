@@ -90,38 +90,41 @@ const template = `<section class="main main--level main--level-genre">
     </div>
   </section>`;
 
-const RESULT_SCREENS = [winScreen, timeOutScreen, attemptsWastedScreen];
+export default () => {
+  const RESULT_SCREENS = [winScreen, timeOutScreen, attemptsWastedScreen];
 
-const element = getElementFromTemplate(template);
-const answerButtons = element.querySelectorAll(`.genre .genre-answer input`);
-const buttonAnswer = element.querySelector(`.genre-answer-send`);
-const playAgainButton = element.querySelector(`.play-again`);
+  const element = getElementFromTemplate(template);
+  const answerButtons = element.querySelectorAll(`.genre-answer > input`);
+  const buttonAnswer = element.querySelector(`.genre-answer-send`);
+  const playAgainButton = element.querySelector(`.play-again`);
 
-buttonAnswer.disabled = true;
+  buttonAnswer.disabled = true;
 
-const getRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min)) + min;
-};
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
 
-for (let i = 0; i < answerButtons.length; i++) {
-  answerButtons[i].addEventListener(`click`, () => {
-    buttonAnswer.disabled = !answerButtons[i].checked;
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener(`click`, () => {
+      buttonAnswer.disabled = !answerButtons[i].checked;
+    });
+  }
+
+  buttonAnswer.addEventListener(`click`, (event) => {
+    event.preventDefault();
+    renderScreen(RESULT_SCREENS[getRandomNumber(0, RESULT_SCREENS.length)]);
+    for (let i = 0; i < answerButtons.length; i++) {
+      answerButtons[i].checked = false;
+    }
   });
-}
 
-buttonAnswer.addEventListener(`click`, (event) => {
-  event.preventDefault();
-  renderScreen(RESULT_SCREENS[getRandomNumber(0, RESULT_SCREENS.length)]);
-  for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].checked = false;
-  }
-});
+  playAgainButton.addEventListener(`click`, () => {
+    event.preventDefault();
+    renderScreen(welcomeScreen);
+    for (let i = 0; i < answerButtons.length; i++) {
+      answerButtons[i].checked = false;
+    }
+  });
 
-playAgainButton.addEventListener(`click`, () => {
-  renderScreen(welcomeScreen);
-  for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].checked = false;
-  }
-});
-
-export default element;
+  return element;
+};

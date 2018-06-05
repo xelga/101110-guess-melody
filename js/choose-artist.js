@@ -65,18 +65,21 @@ const template = `<section class="main main--level main--level-artist">
     </div>
   </section>`;
 
-const element = getElementFromTemplate(template);
-const answerButtons = element.querySelectorAll(`.main-answer`);
-const playAgainButton = element.querySelector(`.play-again`);
+export default () => {
+  const element = getElementFromTemplate(template);
+  const answerButtons = element.querySelectorAll(`.main-answer`);
+  const playAgainButton = element.querySelector(`.play-again`);
 
-for (let i = 0; i < answerButtons.length; i++) {
-  answerButtons[i].addEventListener(`click`, () => {
-    renderScreen(chooseGenreScreen);
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener(`click`, () => {
+      renderScreen(chooseGenreScreen);
+    });
+  }
+
+  playAgainButton.addEventListener(`click`, () => {
+    event.preventDefault();
+    renderScreen(welcomeScreen);
   });
-}
 
-playAgainButton.addEventListener(`click`, () => {
-  renderScreen(welcomeScreen);
-});
-
-export default element;
+  return element;
+};

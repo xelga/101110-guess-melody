@@ -1,12 +1,13 @@
 export const getElementFromTemplate = (template) => {
-  const element = document.createElement(`div`);
+  const element = document.createElement(`template`);
   element.innerHTML = template.trim();
-  return element;
+  return element.content;
 };
 
 const app = document.querySelector(`.app`);
 
-export const renderScreen = (element) => {
+export const renderScreen = (param) => {
+  const element = param();
   const main = app.querySelector(`.main`);
   main.innerHTML = ``;
   main.appendChild(element);

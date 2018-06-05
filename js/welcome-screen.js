@@ -12,11 +12,13 @@ const template = `<section class="main main--welcome">
     </p>
   </section>`;
 
-const element = getElementFromTemplate(template);
-const playButton = element.querySelector(`.main-play`);
+export default () => {
+  const element = getElementFromTemplate(template);
+  const playButton = element.querySelector(`.main-play`);
 
-playButton.addEventListener(`click`, () => {
-  renderScreen(chooseArtistScreen);
-});
+  playButton.addEventListener(`click`, () => {
+    renderScreen(chooseArtistScreen);
+  });
 
-export default element;
+  return element;
+};
