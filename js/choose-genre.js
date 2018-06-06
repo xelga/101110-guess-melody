@@ -91,7 +91,7 @@ const template = `<section class="main main--level main--level-genre">
   </section>`;
 
 export default () => {
-  const RESULT_SCREENS = [winScreen, timeOutScreen, attemptsWastedScreen];
+  const resultScreens = [winScreen, timeOutScreen, attemptsWastedScreen];
 
   const element = getElementFromTemplate(template);
   const answerButtons = element.querySelectorAll(`.genre-answer > input`);
@@ -112,7 +112,7 @@ export default () => {
 
   buttonAnswer.addEventListener(`click`, (event) => {
     event.preventDefault();
-    renderScreen(RESULT_SCREENS[getRandomNumber(0, RESULT_SCREENS.length)]);
+    renderScreen(resultScreens[getRandomNumber(0, resultScreens.length)]);
     for (let i = 0; i < answerButtons.length; i++) {
       answerButtons[i].checked = false;
     }
