@@ -1,7 +1,7 @@
 import {getElementFromTemplate, renderScreen} from './util.js';
 import winScreen from './win-screen.js';
 import timeOutScreen from './loss-time-out.js';
-import attemptsWastedScreen from './loss-attempts-wasted.js';
+import livesWastedScreen from './loss-lives-wasted.js';
 import welcomeScreen from './welcome-screen.js';
 
 const template = `<section class="main main--level main--level-genre">
@@ -91,7 +91,7 @@ const template = `<section class="main main--level main--level-genre">
   </section>`;
 
 export default () => {
-  const resultScreens = [winScreen, timeOutScreen, attemptsWastedScreen];
+  const resultScreens = [winScreen, timeOutScreen, livesWastedScreen];
 
   const element = getElementFromTemplate(template);
   const answerButtons = element.querySelectorAll(`.genre-answer > input`);
