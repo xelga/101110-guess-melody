@@ -2,19 +2,19 @@ import {assert} from 'chai';
 import {createTimer} from './timer.js';
 
 describe(`Check timer`, () => {
-  it(`should return timer object`, () => {
+  it(`must return timer object`, () => {
     assert.isObject(createTimer(20));
   });
-  it(`should say that time is over`, () => {
+  it(`must say that the time is over`, () => {
     assert.isTrue(createTimer(1).tick().noTime);
   });
-  it(`should return current time`, () => {
+  it(`must return current time`, () => {
     assert.equal(createTimer(10).tick().currentTime, 9);
   });
-  it(`should not allow wrong value of time`, () => {
-    assert.throws(() => createTimer(-1), /Time value is wrong/);
+  it(`must not allow incorrect time value`, () => {
+    assert.throws(() => createTimer(-1), /The time value is incorrect/);
   });
-  it(`should not allow time value if it not a number`, () => {
-    assert.throws(() => createTimer(``), /Time should be the type of number/);
+  it(`must not allow the time value if it is not a number`, () => {
+    assert.throws(() => createTimer(``), /The time must be the type of number/);
   });
 });

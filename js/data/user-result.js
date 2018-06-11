@@ -1,38 +1,29 @@
 const compareNumbers = (a, b) => b - a;
 
-export const getUserResult = (userResult, otherUsersResults) => {
-  if (typeof userResult !== `object` || Array.isArray(userResult)) {
-    throw new Error(`User result should be an object`);
+export const getUserResult = (points, otherUsersPoints) => {
+  if (typeof points !== `number`) {
+    throw new Error(`"Points must be the type of number`);
   }
 
-  if (!Array.isArray(otherUsersResults)) {
-    throw new Error(`Other users results should be an array`);
+  if (!Array.isArray(otherUsersPoints)) {
+    throw new Error(`"Other users results" must be an array`);
   }
 
-  if (userResult.time <= 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии`;
-  }
-
-  if (userResult.lives <= 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  }
-
-  const pointsStatistics = otherUsersResults.slice();
-  const userPoints = userResult.points;
-  const playersNumber = otherUsersResults.length + 1;
+  const pointsStatistics = otherUsersPoints.slice();
+  const playersNumber = otherUsersPoints.length + 1;
   let userPlace = 0;
   let playersWithEqualPoints = 0;
 
   for (let i = 0; i < pointsStatistics.length; i++) {
-    if (pointsStatistics[i] === userPoints) {
+    if (pointsStatistics[i] === points) {
       playersWithEqualPoints += 1;
     }
   }
-  pointsStatistics.push(userPoints);
+  pointsStatistics.push(points);
   pointsStatistics.sort(compareNumbers);
 
   for (let i = 0; i < pointsStatistics.length; i++) {
-    if (pointsStatistics[i] === userPoints) {
+    if (pointsStatistics[i] === points) {
       userPlace = i + 1;
       break;
     }
