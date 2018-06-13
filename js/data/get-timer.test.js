@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {createTimer} from './timer.js';
+import {createTimer} from './get-timer.js';
 
 describe(`Check timer`, () => {
   it(`must return timer object`, () => {

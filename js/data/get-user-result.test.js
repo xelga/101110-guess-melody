@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {getUserResult} from './user-result.js';
+import {getUserResult} from './get-user-result.js';
 
 describe(`Check the user's results`, () => {
   it(`must return a win message when the user's result is unique`, () => {
