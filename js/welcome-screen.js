@@ -22,7 +22,7 @@ export default (gameConfig) => {
     'current-game-screen': gameConfig[`start-screen-number`]
   };
   playButton.addEventListener(`click`, () => {
-    renderScreen(gameScreen(gameConfig, gameState, gameScreens, userAnswers));
+    renderScreen(gameScreen(gameConfig, gameState, gameScreens));
   });
 
   return element;

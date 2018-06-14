@@ -84,7 +84,7 @@ export const gameScreens = [
         isCorrect: true
       },
       'answer-4': {
-        description: tracks[2],
+        description: tracks[3],
         isCorrect: true
       }
     }
