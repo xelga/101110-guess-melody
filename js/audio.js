@@ -17,7 +17,7 @@ export default (gameScreenElement, currentGameScreen, gameType) => {
     const control = player.querySelector(`.player-control`);
     const status = player.querySelector(`.player-status`);
 
-    audio.src = currentGameScreen.answers[`answer-${audioNumber}`].description.src;
+    audio.src = currentGameScreen.answers[`answer-${audioNumber}`].trackData.src;
     audio.addEventListener(`error`, () => {
       throw new Error(`Failed to download audio-${audioNumber}`);
     });

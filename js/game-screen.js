@@ -6,7 +6,7 @@ import gameScreen from './game-screen.js';
 import renderAudio from './audio.js';
 
 export default (gameConfig, gameState, gameScreens) => {
-  const currentGameScreen = gameScreens[gameState[`current-game-screen`]];
+  const currentGameScreen = gameScreens[gameState.currentGameScreenNumber];
 
   const gameStateTemplate = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle cx="390" cy="390" r="370" class="timer-line"
@@ -21,7 +21,7 @@ export default (gameConfig, gameState, gameScreens) => {
     ${new Array(gameConfig.lives - gameState.lives).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
     </div>`;
 
-  const gameTypeArtistTemplate = `<h2 class="title main-title">Кто исполняет эту песню?</h2>
+  const gameTypeArtistTemplate = `<h2 class="title main-title">${currentGameScreen.question}</h2>
       <div class="player-wrapper">
         <div class="player">
           <audio></audio>
@@ -34,7 +34,7 @@ export default (gameConfig, gameState, gameScreens) => {
       <form class="main-list">
       </form>`;
 
-  const gameTypeGenreTemplate = `<h2 class="title">Выберите инди-рок треки</h2>
+  const gameTypeGenreTemplate = `<h2 class="title">${currentGameScreen.question}</h2>
       <form class="genre">
         <button class="genre-answer-send" type="submit">Ответить</button>
       </form>`;
@@ -64,9 +64,9 @@ export default (gameConfig, gameState, gameScreens) => {
     const artistAnswerTemplate = `<div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${number}" name="answer" value="val-1"/>
           <label class="main-answer" for="answer-${number}">
-            <img class="main-answer-preview" src="${currentGameScreen.answers[`answer-${number}`].description.image}"
-            alt="${currentGameScreen.answers[`answer-${number}`].description.artist}" width="134" height="134">
-            ${currentGameScreen.answers[`answer-${number}`].description.artist}
+            <img class="main-answer-preview" src="${currentGameScreen.answers[`answer-${number}`].trackData.image}"
+            alt="${currentGameScreen.answers[`answer-${number}`].trackData.artist}" width="134" height="134">
+            ${currentGameScreen.answers[`answer-${number}`].trackData.artist}
           </label>
          </div>`;
     const artistAnswer = getElementFromTemplate(artistAnswerTemplate);
@@ -75,7 +75,7 @@ export default (gameConfig, gameState, gameScreens) => {
   };
 
   const renderGenreAnswers = (gameScreenElement, number) => {
-    const artistAnswerTemplate = `<div class="genre-answer">
+    const genreAnswerTemplate = `<div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
               <audio></audio>
@@ -88,7 +88,7 @@ export default (gameConfig, gameState, gameScreens) => {
           <input type="checkbox" name="answer" value="answer-1" id="a-${number}">
           <label class="genre-answer-check" for="a-${number}"></label>
         </div>`;
-    const artistAnswer = getElementFromTemplate(artistAnswerTemplate);
+    const artistAnswer = getElementFromTemplate(genreAnswerTemplate);
     const container = gameScreenElement.querySelector(`.genre`);
     const buttonAnswer = gameScreenElement.querySelector(`.genre-answer-send`);
     container.insertBefore(artistAnswer, buttonAnswer);
@@ -108,8 +108,8 @@ export default (gameConfig, gameState, gameScreens) => {
     }
 
     if (gameState.lives > 0) {
-      gameState[`current-game-screen`] += 1;
-      if (gameState[`current-game-screen`] < gameScreens.length) {
+      gameState.currentGameScreenNumber += 1;
+      if (gameState.currentGameScreenNumber < gameScreens.length) {
         renderScreen(gameScreen(gameConfig, gameState, gameScreens));
       } else {
         renderScreen(resultScreen(gameConfig, gameState, userAnswers));
@@ -120,7 +120,7 @@ export default (gameConfig, gameState, gameScreens) => {
   };
 
   const saveUserAnswer = (isCorrect) => {
-    userAnswers[gameState[`current-game-screen`]] = {
+    userAnswers[gameState.currentGameScreenNumber] = {
       correct: isCorrect,
       time: 30
     };

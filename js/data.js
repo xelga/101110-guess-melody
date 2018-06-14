@@ -44,203 +44,213 @@ const tracks = [
 ];
 
 export const gameConfig = {
-  'time': 300, // sec
-  'game-screens-number': 10,
-  'start-screen-number': 0,
-  'lives': 3
+  time: 300, // sec
+  gameScreensNumber: 10,
+  startScreenNumber: 0,
+  lives: 3
 };
 
 export const gameScreens = [
   {
     type: `artist`,
+    question: `Кто исполняет эту песню?`,
     answers: {
       'answer-1': {
-        description: tracks[0],
+        trackData: tracks[0],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: false
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите инди-рок треки`,
     answers: {
       'answer-1': {
-        description: tracks[0],
+        trackData: tracks[0],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: true
       },
       'answer-3': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: true
       },
       'answer-4': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: true
       }
     }
   },
   {
     type: `artist`,
+    question: `Кто исполняет эту песню?`,
     answers: {
       'answer-1': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: false
       },
       'answer-2': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: true
       },
       'answer-3': {
-        description: tracks[4],
+        trackData: tracks[4],
         isCorrect: false
       }
     }
   },
   {
     type: `artist`,
+    question: `Кто исполняет эту песню?`,
     answers: {
       'answer-1': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       },
       'answer-2': {
-        description: tracks[4],
+        trackData: tracks[4],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: true
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите джаз треки`,
     answers: {
       'answer-1': {
-        description: tracks[0],
+        trackData: tracks[0],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: true
       },
       'answer-3': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: true
       },
       'answer-4': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите всю попсятину`,
     answers: {
       'answer-1': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: true
       },
       'answer-3': {
-        description: tracks[4],
+        trackData: tracks[4],
         isCorrect: false
       },
       'answer-4': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: false
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите звуки латино`,
     answers: {
       'answer-1': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       },
       'answer-4': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: false
       }
     }
   },
   {
     type: `artist`,
+    question: `Кто исполняет эту песню?`,
     answers: {
       'answer-1': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[4],
+        trackData: tracks[4],
         isCorrect: false
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите кантри треки`,
     answers: {
       'answer-1': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       },
       'answer-4': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: false
       }
     }
   },
   {
     type: `genre`,
+    question: `Выберите фолк треки`,
     answers: {
       'answer-1': {
-        description: tracks[5],
+        trackData: tracks[5],
         isCorrect: true
       },
       'answer-2': {
-        description: tracks[1],
+        trackData: tracks[1],
         isCorrect: false
       },
       'answer-3': {
-        description: tracks[3],
+        trackData: tracks[3],
         isCorrect: false
       },
       'answer-4': {
-        description: tracks[2],
+        trackData: tracks[2],
         isCorrect: false
       }
     }

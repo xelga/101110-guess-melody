@@ -17,9 +17,9 @@ export default (gameConfig) => {
   const playButton = element.querySelector(`.main-play`);
   userAnswers.length = 0;
   const gameState = {
-    'lives': gameConfig.lives,
-    'time': gameConfig.time,
-    'current-game-screen': gameConfig[`start-screen-number`]
+    lives: gameConfig.lives,
+    time: gameConfig.time,
+    currentGameScreenNumber: gameConfig.startScreenNumber
   };
   playButton.addEventListener(`click`, () => {
     renderScreen(gameScreen(gameConfig, gameState, gameScreens));
