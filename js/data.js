@@ -50,6 +50,12 @@ export const gameConfig = {
   lives: 3
 };
 
+export const gameState = {
+  lives: gameConfig.lives,
+  time: gameConfig.time,
+  currentGameScreenNumber: gameConfig.startScreenNumber
+};
+
 export const gameScreens = [
   {
     type: `artist`,
