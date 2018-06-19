@@ -1,5 +1,4 @@
 import {renderScreen} from './util.js';
-import welcomeScreen from './welcome-screen.js';
-import {gameConfig} from './data.js';
+import welcome from './welcome.js';
 
-renderScreen(welcomeScreen(gameConfig));
+renderScreen(welcome());
