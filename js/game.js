@@ -1,5 +1,6 @@
 import {renderScreen} from './util.js';
 import {gameConfig, gameState, gameScreens, userAnswers} from './data.js';
+import {stopTimer} from './data/get-timer.js';
 import welcome from "./welcome";
 import game from './game.js';
 import result from './result.js';
@@ -18,12 +19,16 @@ export default () => {
 
   gameScreen.onPlayAgain = () => {
     renderScreen(welcome());
+    stopTimer();
   };
 
   gameScreen.onAnswer = (isCorrect) => {
+    const answerTime = gameState.previousAnswerTime - gameState.time;
+    gameState.previousAnswerTime = gameState.time;
+
     userAnswers[gameState.currentGameScreenNumber] = {
       correct: isCorrect,
-      time: 30
+      time: answerTime
     };
 
     if (!isCorrect) {
@@ -37,10 +42,12 @@ export default () => {
         renderScreen(game());
       } else {
         renderScreen(result());
+        stopTimer();
       }
 
     } else {
       renderScreen(result());
+      stopTimer();
     }
   };
 

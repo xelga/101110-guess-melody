@@ -17,10 +17,10 @@ export const getUserStatistics = (userAnswers, gameState) => {
     return `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`;
   }
 
-  const userTime = userAnswers.reduce((acc, it) => acc + it.time, 0) / 60;
+  const userTime = userAnswers.reduce((acc, it) => acc + it.time, 0);
   const quickAnswers = (userAnswers.filter((it) => it.time < 30 && it.correct)).length;
   const mistakes = (userAnswers.filter((it) => it.correct === false)).length;
 
-  return `За&nbsp;${Math.floor(userTime)}&nbsp;минуты и ${(userTime).toFixed(2).slice(2)}&nbsp;секунд
+  return `За&nbsp;${Math.floor(userTime / 60)}&nbsp;минуты и ${Math.floor(userTime % 60)}&nbsp;секунд
 <br>вы&nbsp;набрали ${getUserPoints(userAnswers)} баллов (${quickAnswers} быстрых)<br>совершив ${mistakes} ошибки`;
 };

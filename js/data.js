@@ -53,7 +53,8 @@ export const gameConfig = {
 export const gameState = {
   lives: gameConfig.lives,
   time: gameConfig.time,
-  currentGameScreenNumber: gameConfig.startScreenNumber
+  currentGameScreenNumber: gameConfig.startScreenNumber,
+  previousAnswerTime: gameConfig.time
 };
 
 export const gameScreens = [
