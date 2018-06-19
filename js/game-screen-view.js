@@ -51,8 +51,6 @@ export default class GameScreenView extends AbstractView {
 
     playAgainButton.addEventListener(`click`, (event) => {
       event.preventDefault();
-      console.log(event.target);
-      console.log(event.currentTarget);
 
       this.onPlayAgain();
     });
