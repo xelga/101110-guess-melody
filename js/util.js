@@ -5,9 +5,3 @@ export const renderScreen = (param) => {
   main.innerHTML = ``;
   main.appendChild(param);
 };
-
-export const renderTimer = (param) => {
-  const timer = app.querySelector(`.timer-value`);
-  timer.innerHTML = ``;
-  timer.appendChild(param);
-};

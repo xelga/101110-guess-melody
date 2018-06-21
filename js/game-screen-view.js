@@ -18,9 +18,6 @@ export default class GameScreenView extends AbstractView {
       <circle cx="390" cy="390" r="370" class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
         <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-          <span class="timer-value-mins">${Math.floor(this.gameState.time / 60)}</span><!--
-          --><span class="timer-value-dots">:</span><!--
-          --><span class="timer-value-secs">${Math.floor(this.gameState.time % 60)}</span>
         </div>
     </svg>
     <div class="main-mistakes">
@@ -34,6 +31,32 @@ export default class GameScreenView extends AbstractView {
 
   get templateGame() {
     return ``;
+  }
+
+  get _min() {
+    let min = Math.floor(this.gameState.time / 60);
+    min = min <= 9 ? `0${min}` : min;
+    return min;
+  }
+
+  get _sec() {
+    let sec = Math.floor(this.gameState.time % 60);
+    sec = sec <= 9 ? `0${sec}` : sec;
+    return sec;
+  }
+
+  get _templateTimer() {
+    return `<span class="timer-value-mins">${this._min}</span><!--
+          --><span class="timer-value-dots">:</span><!--
+          --><span class="timer-value-secs">${this._sec}</span>`;
+  }
+
+  renderTimer() {
+    const element = document.createElement(`template`);
+    element.innerHTML = this._templateTimer.trim();
+    const timer = document.querySelector(`.timer-value`);
+    timer.innerHTML = ``;
+    timer.appendChild(element.content);
   }
 
   initializeAudio() {

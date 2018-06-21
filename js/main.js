@@ -1,4 +1,3 @@
-import {renderScreen} from './util.js';
-import welcome from './welcome.js';
+import Application from './application.js';
 
-renderScreen(welcome());
+Application.showWelcome();
