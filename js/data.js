@@ -44,7 +44,7 @@ const tracks = [
 ];
 
 export const gameConfig = {
-  time: 300, // sec
+  time: 5, // sec
   gameScreensNumber: 10,
   startScreenNumber: 0,
   lives: 3

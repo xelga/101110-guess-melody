@@ -49,7 +49,7 @@ export default class Game {
     this._interval = setInterval(() => {
       this.model.tick();
 
-      if (this.model.noTime) {
+      if (this.model.gameState.time <= 0) {
         this._stopTimer();
         Application.showResult(this.model);
       } else {

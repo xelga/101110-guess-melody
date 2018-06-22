@@ -1,12 +1,11 @@
 import {gameConfig, gameState, gameScreens, userAnswers} from '../data.js';
-import {createTimer} from './get-timer';
 
 export default class GameModel {
   constructor() {
-    this._getGameConfig();
-    this._getGameState();
-    this._getGameScreens();
-    this._getUserAnswers();
+    this._gameConfig = gameConfig;
+    this._gameState = gameState;
+    this._gameScreens = gameScreens;
+    this._userAnswers = userAnswers;
   }
 
   get gameConfig() {
@@ -29,10 +28,6 @@ export default class GameModel {
     return this._userAnswers;
   }
 
-  get noTime() {
-    return this._noTime;
-  }
-
   getCurrentGameScreen() {
     this._currentGameScreen = this._gameScreens[this._gameState.currentGameScreenNumber];
   }
@@ -46,9 +41,7 @@ export default class GameModel {
   }
 
   tick() {
-    const timer = createTimer(this._gameState.time).tick();
-    this._gameState.time = timer.currentTime;
-    this._noTime = timer.noTime;
+    this._gameState.time -= 1;
   }
 
   changePreviousAnswerTime() {
@@ -68,21 +61,5 @@ export default class GameModel {
 
   getNextGameScreenNumber() {
     this._gameState.currentGameScreenNumber += 1;
-  }
-
-  _getGameConfig() {
-    this._gameConfig = gameConfig;
-  }
-
-  _getGameState() {
-    this._gameState = gameState;
-  }
-
-  _getGameScreens() {
-    this._gameScreens = gameScreens;
-  }
-
-  _getUserAnswers() {
-    this._userAnswers = userAnswers;
   }
 }
