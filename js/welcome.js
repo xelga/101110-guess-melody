@@ -1,22 +1,21 @@
-import {renderScreen} from './util.js';
-import {gameConfig, gameState, userAnswers} from './data.js';
-import game from './game.js';
 import WelcomeView from './welcome-view.js';
+import Application from './application.js';
 
-export default () => {
-  const updateGame = () => {
-    userAnswers.length = 0;
-    gameState.lives = gameConfig.lives;
-    gameState.time = gameConfig.time;
-    gameState.currentGameScreenNumber = gameConfig.startScreenNumber;
-  };
+export default class Welcome {
+  constructor(model) {
+    this.model = model;
+    this.welcome = new WelcomeView(this.model.gameConfig);
+  }
 
-  updateGame();
+  get element() {
+    return this.welcome.element;
+  }
 
-  const welcome = new WelcomeView(gameConfig);
-  welcome.onPlay = () => {
-    renderScreen(game());
-  };
+  init() {
+    this.welcome.onPlay = this._startGame.bind(this);
+  }
 
-  return welcome.element;
-};
+  _startGame() {
+    Application.showGame(this.model);
+  }
+}

@@ -1,48 +1,95 @@
 import {renderScreen} from './util.js';
-import {gameConfig, gameState, gameScreens, userAnswers} from './data.js';
-import welcome from "./welcome";
-import game from './game.js';
-import result from './result.js';
+import Application from './application.js';
 import GameArtistView from './game-artist-view.js';
 import GameGenreView from './game-genre-view.js';
 
-export default () => {
-  const currentGameScreen = gameScreens[gameState.currentGameScreenNumber];
-  let gameScreen;
+export default class Game {
+  constructor(model) {
+    this.model = model;
 
-  if (currentGameScreen.type === `artist`) {
-    gameScreen = new GameArtistView(gameConfig, gameState, currentGameScreen);
-  } else {
-    gameScreen = new GameGenreView(gameConfig, gameState, currentGameScreen);
+    this._updateGame();
+    this._getGameScreen();
+    this._interval = null;
   }
 
-  gameScreen.onPlayAgain = () => {
-    renderScreen(welcome());
-  };
+  get element() {
+    return this._gameScreen.element;
+  }
 
-  gameScreen.onAnswer = (isCorrect) => {
-    userAnswers[gameState.currentGameScreenNumber] = {
-      correct: isCorrect,
-      time: 30
-    };
+  startGame() {
+    this._gameScreen.renderTimer();
+    this._startTimer();
+    this._gameScreen.onPlayAgain = this._playAgain.bind(this);
+    this._gameScreen.onAnswer = this._answer.bind(this);
+  }
+
+  _updateGame() {
+    this.model.updateGame();
+  }
+
+  _continueGame() {
+    this._getGameScreen();
+    renderScreen(this.element);
+    this._gameScreen.renderTimer();
+    this._gameScreen.onPlayAgain = this._playAgain.bind(this);
+    this._gameScreen.onAnswer = this._answer.bind(this);
+  }
+
+  _getGameScreen() {
+    this.model.getCurrentGameScreen();
+
+    if (this.model.currentGameScreen.type === `artist`) {
+      this._gameScreen = new GameArtistView(this.model.gameConfig, this.model.gameState, this.model.currentGameScreen);
+    } else {
+      this._gameScreen = new GameGenreView(this.model.gameConfig, this.model.gameState, this.model.currentGameScreen);
+    }
+  }
+
+  _startTimer() {
+    this._interval = setInterval(() => {
+      this.model.tick();
+
+      if (this.model.gameState.time <= 0) {
+        this._stopTimer();
+        Application.showResult(this.model);
+      } else {
+        this._gameScreen.renderTimer();
+      }
+    }, 1000);
+  }
+
+  _stopTimer() {
+    clearTimeout(this._interval);
+  }
+
+  _answer(isCorrect) {
+    const answerTime = this.model.gameState.previousAnswerTime - this.model.gameState.time;
+    this.model.changePreviousAnswerTime();
+    this.model.saveUserAnswer(isCorrect, answerTime);
 
     if (!isCorrect) {
-      gameState.lives -= 1;
+      this.model.reduceLives();
     }
 
-    if (gameState.lives > 0) {
-      gameState.currentGameScreenNumber += 1;
+    if (this.model.gameState.lives > 0) {
+      this.model.getNextGameScreenNumber();
 
-      if (gameState.currentGameScreenNumber < gameScreens.length) {
-        renderScreen(game());
+      if (this.model.gameState.currentGameScreenNumber < this.model.gameScreens.length) {
+        this.model.getCurrentGameScreen();
+        this._continueGame();
       } else {
-        renderScreen(result());
+        this._stopTimer();
+        Application.showResult(this.model);
       }
 
     } else {
-      renderScreen(result());
+      this._stopTimer();
+      Application.showResult(this.model);
     }
-  };
+  }
 
-  return gameScreen.element;
-};
+  _playAgain() {
+    this._stopTimer();
+    Application.showWelcome(this.model);
+  }
+}
