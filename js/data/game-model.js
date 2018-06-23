@@ -1,10 +1,9 @@
-import {gameConfig, gameState, gameScreens, userAnswers} from '../data.js';
+import {gameConfig, gameState, userAnswers} from '../data.js';
 
 export default class GameModel {
   constructor() {
     this._gameConfig = gameConfig;
     this._gameState = gameState;
-    this._gameScreens = gameScreens;
     this._userAnswers = userAnswers;
   }
 
@@ -26,6 +25,10 @@ export default class GameModel {
 
   get userAnswers() {
     return this._userAnswers;
+  }
+
+  set gameScreens(data) {
+    this._gameScreens = data;
   }
 
   getCurrentGameScreen() {

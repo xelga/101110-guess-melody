@@ -19,7 +19,7 @@ export default (gameScreenElement, currentGameScreen, gameType) => {
 
     audio.src = currentGameScreen.answers[`answer-${audioNumber}`].trackData.src;
     audio.addEventListener(`error`, () => {
-      throw new Error(`Failed to download audio-${audioNumber}`);
+      throw new Error(`Failed to download audio`);
     });
     status.textContent = `остановлен`;
 

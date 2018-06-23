@@ -55,6 +55,10 @@ export default class Game {
       } else {
         this._gameScreen.renderTimer();
       }
+
+      if (this.model.gameState.time < 30) {
+        this._gameScreen.hurryUp();
+      }
     }, 1000);
   }
 
@@ -89,7 +93,18 @@ export default class Game {
   }
 
   _playAgain() {
+    this._gameScreen.showModalConfirm();
+    this._gameScreen.onConfirm = this._showWelcome.bind(this);
+    this._gameScreen.onCancel = this._closeModal.bind(this);
+  }
+
+  _showWelcome() {
     this._stopTimer();
-    Application.showWelcome(this.model);
+    this._gameScreen.closeModal();
+    Application.showWelcome();
+  }
+
+  _closeModal() {
+    this._gameScreen.closeModal();
   }
 }
