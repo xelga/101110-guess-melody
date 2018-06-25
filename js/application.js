@@ -14,24 +14,24 @@ const checkStatus = (response) => {
   }
 };
 
-let gameModel;
-const setModelGameData = (data) => {
-  gameModel.gameScreens = adaptServerData(data);
-  return data;
-};
-
 export default class Application {
+  static start(gameModel, welcome) {
+    window.fetch(`https://es.dump.academy/guess-melody/questions`)
+      .then(checkStatus)
+      .then((response) => response.json())
+      .then((data) => {
+        gameModel.gameScreens = adaptServerData(data);
+      })
+      .then(() => welcome.letPlay())
+      .catch(Application.showErrorModal);
+  }
+
   static showWelcome() {
-    gameModel = new GameModel();
+    const gameModel = new GameModel();
     const welcome = new Welcome(gameModel);
     renderScreen(welcome.element);
     welcome.init();
-    window.fetch(`https://es.dump.academy/guess-melody/questions`).
-    then(checkStatus).
-    then((response) => response.json()).
-    then(setModelGameData).
-    then(() => welcome.letPlay()).
-    catch(Application.showErrorModal);
+    Application.start(gameModel, welcome);
   }
 
   static showGame(model) {

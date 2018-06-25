@@ -132,21 +132,21 @@
   }
 ];
 */
-let adaptedData = [];
-let adaptedDataItem = 0;
-let adaptedDataAnswerNumber = 1;
+
+let answerNumber = 1;
 let isCorrect;
 let src = ``;
 
-const getDataArtistGame = (gameScreenData) => {
-  for (const answer of gameScreenData.answers) {
+const getDataArtistGame = (item) => {
+  const answers = {};
+
+  for (const answer of item.answers) {
     isCorrect = answer.isCorrect;
 
     if (isCorrect) {
-      src = gameScreenData.src;
+      src = item.src;
     }
-
-    adaptedData[adaptedDataItem].answers[`answer-${adaptedDataAnswerNumber }`] = {
+    answers[`answer-${answerNumber }`] = {
       trackData: {
         artist: answer.title,
         image: answer.image.url,
@@ -155,43 +155,52 @@ const getDataArtistGame = (gameScreenData) => {
       isCorrect
     };
 
-    adaptedDataAnswerNumber += 1;
+    answerNumber += 1;
   }
+
+  return answers;
 };
 
-const getDataGenreGame = (gameScreenData) => {
-  for (const answer of gameScreenData.answers) {
-    adaptedData[adaptedDataItem].answers[`answer-${adaptedDataAnswerNumber }`] = {
+const getDataGenreGame = (item) => {
+  const answers = {};
+
+  for (const answer of item.answers) {
+    answers[`answer-${answerNumber }`] = {
       trackData: {
         artist: ``,
         image: ``,
         src: answer.src
       },
-      isCorrect: gameScreenData.genre === answer.genre
+      isCorrect: item.genre === answer.genre
     };
 
-    adaptedDataAnswerNumber += 1;
+    answerNumber += 1;
   }
+
+  return answers;
+};
+
+const getAnswers = (item) => {
+  let answers;
+  answerNumber = 1;
+
+  if (item.type === `artist`) {
+    answers = getDataArtistGame(item);
+  } else {
+    answers = getDataGenreGame(item);
+  }
+
+  return answers;
 };
 
 export const adaptServerData = (data) => {
-  for (const gameScreenData of data) {
-    adaptedDataAnswerNumber = 1;
-
-    adaptedData[adaptedDataItem] = {
-      type: gameScreenData.type,
-      question: gameScreenData.question,
-      answers: {}
+  const adaptedData = data.map((item) => {
+    return {
+      type: item.type,
+      question: item.question,
+      answers: getAnswers(item)
     };
-
-    if (gameScreenData.type === `artist`) {
-      getDataArtistGame(gameScreenData);
-    } else {
-      getDataGenreGame(gameScreenData);
-    }
-
-    adaptedDataItem += 1;
-  }
+  });
 
   return adaptedData;
 };
