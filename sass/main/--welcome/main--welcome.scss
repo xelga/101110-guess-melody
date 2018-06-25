@@ -27,12 +27,29 @@
   text-indent: -100em;
   transform-origin: center;
   width: 0;
+
+  &:disabled {
+    border-left-color: $color-text-grey;
+    transform: scale(1);
+  }
 }
 
-.main-play:hover {
+.main-play:not(:disabled):hover {
   transform: scale(1.05);
 }
 
-.main-play:active {
+.main-play:not(:disabled):active {
   transform: scale(1.04);
+}
+
+.main-loader {
+  color: $color-text-grey;
+  position: absolute;
+  top: 320px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &--hidden {
+    display: none
+  }
 }

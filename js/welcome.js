@@ -15,6 +15,10 @@ export default class Welcome {
     this.welcome.onPlay = this._startGame.bind(this);
   }
 
+  letPlay() {
+    this.welcome.letPlay();
+  }
+
   _startGame() {
     Application.showGame(this.model);
   }
