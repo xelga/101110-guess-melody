@@ -15,14 +15,14 @@ const checkStatus = (response) => {
 };
 
 export default class Application {
-  static start(gameModel, welcome) {
-    window.fetch(`https://es.dump.academy/guess-melody/questions`)
+  static load(gameModel) {
+    return window.fetch(`https://es.dump.academy/guess-melody/questions`)
       .then(checkStatus)
       .then((response) => response.json())
       .then((data) => {
         gameModel.gameScreens = adaptServerData(data);
+        return data;
       })
-      .then(() => welcome.letPlay())
       .catch(Application.showErrorModal);
   }
 
@@ -31,7 +31,12 @@ export default class Application {
     const welcome = new Welcome(gameModel);
     renderScreen(welcome.element);
     welcome.init();
-    Application.start(gameModel, welcome);
+    Application.load(gameModel)
+      .then((data) => {
+        if (data) {
+          welcome.letPlay();
+        }
+      });
   }
 
   static showGame(model) {
