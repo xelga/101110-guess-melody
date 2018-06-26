@@ -38,18 +38,18 @@ export default class serverApi {
 
   static loadResults() {
     return window.fetch(`${SERVER_URL}/stats/:${APP_ID}`)
-    .then(checkStatus)
-    .then((response) => {
-      if (response.length === 0) {
-        return [];
-      }
-      return toJSON(response);
-    })
-    .then((data) => {
-      if (data.length === 0) {
-        return [];
-      }
-      return adaptServerResults(data);
-    });
+      .then(checkStatus)
+      .then((response) => {
+        if (response.length === 0) {
+          return [];
+        }
+        return toJSON(response);
+      })
+      .then((data) => {
+        if (data.length === 0) {
+          return [];
+        }
+        return adaptServerResults(data);
+      });
   }
 }
