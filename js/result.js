@@ -15,6 +15,14 @@ export default class Result {
     this.result.onPlay = this._startGame.bind(this);
   }
 
+  showUsersComparison(otherUsersResults) {
+    this.result.renderUsersComparison(otherUsersResults);
+  }
+
+  showMessage() {
+    this.result.showMessage();
+  }
+
   _startGame() {
     Application.showGame(this.model);
   }

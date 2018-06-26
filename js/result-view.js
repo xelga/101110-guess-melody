@@ -1,7 +1,6 @@
 import {getUserPoints} from './data/get-user-points.js';
 import {getUserResult} from './data/get-user-result.js';
 import {getUserStatistics} from './data/get-user-statistics.js';
-import {otherUsersResults} from './data.js';
 import AbstractView from './abstract-view';
 
 export default class ResultView extends AbstractView {
@@ -37,10 +36,20 @@ export default class ResultView extends AbstractView {
     let usersComparisonTemplate = ``;
 
     if (this.gameState.lives > 0 && this.gameState.time > 0) {
-      usersComparisonTemplate = `<span class="main-comparison">${getUserResult(getUserPoints(this.userAnswers), otherUsersResults)}</span>`;
+      usersComparisonTemplate = `<span class="main-comparison">Загрузка статистики...</span>`;
     }
 
     return usersComparisonTemplate;
+  }
+
+  renderUsersComparison(otherUsersResults) {
+    const mainComparison = document.querySelector(`.main-comparison`);
+    mainComparison.textContent = getUserResult(getUserPoints(this.userAnswers), otherUsersResults);
+  }
+
+  showMessage() {
+    const mainComparison = document.querySelector(`.main-comparison`);
+    mainComparison.textContent = `Вы первый, кто прошел эту игру!`;
   }
 
   bind() {
