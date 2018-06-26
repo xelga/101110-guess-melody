@@ -30,5 +30,5 @@ export const getUserResult = (points, otherUsersPoints) => {
   }
   const userSuccessRate = (playersNumber - playersWithEqualPoints - userPlace) / (playersNumber) * 100;
 
-  return `Вы заняли ${userPlace} место из ${playersNumber} игроков. Это лучше, чем у ${userSuccessRate}% игроков`;
+  return `Вы заняли ${userPlace} место из ${playersNumber} игроков. Это лучше, чем у ${Math.floor(userSuccessRate)}% игроков`;
 };

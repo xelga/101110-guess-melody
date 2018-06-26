@@ -1,10 +1,10 @@
-import {gameConfig, gameState, userAnswers} from '../data.js';
+import {gameConfig, gameState} from '../data.js';
 
 export default class GameModel {
   constructor() {
     this._gameConfig = gameConfig;
     this._gameState = gameState;
-    this._userAnswers = userAnswers;
+    this._userAnswers = [];
   }
 
   get gameConfig() {
