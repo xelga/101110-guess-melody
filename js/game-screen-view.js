@@ -1,4 +1,5 @@
 import {getElementFromTemplate, renderModal} from './util.js';
+import {getCircleTimerParam} from './data/get-circle-timer-param.js';
 import AbstractView from './abstract-view';
 import audio from './audio.js';
 
@@ -19,7 +20,7 @@ export default class GameScreenView extends AbstractView {
       <circle cx="390" cy="390" r="370" class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
     </svg>
-    <div class="timer-value"></div>
+    <div class="timer-value ${this._hurryTimerClass}"></div>
     <div class="main-mistakes">
         ${new Array(this.gameConfig.lives - this.gameState.lives).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
     </div>
@@ -31,6 +32,14 @@ export default class GameScreenView extends AbstractView {
 
   get templateGame() {
     return ``;
+  }
+
+  get _hurryTimerClass() {
+    let hurryTimerClass = ``;
+    if (this.gameState.time < 30) {
+      hurryTimerClass = `timer-value--finished`;
+    }
+    return hurryTimerClass;
   }
 
   get _min() {
@@ -66,7 +75,15 @@ export default class GameScreenView extends AbstractView {
   }
 
   renderTimer() {
-    const timer = document.querySelector(`.timer-value`);
+    const mainLevel = document.querySelector(`.main--level`);
+    const timerLine = mainLevel.querySelector(`.timer-line`);
+    const radius = timerLine.getAttribute(`r`);
+    const timer = mainLevel.querySelector(`.timer-value`);
+    const pastTime = this.gameConfig.time - this.gameState.time;
+    const circleTimerParam = getCircleTimerParam(radius, this.gameConfig.time, pastTime);
+
+    timerLine.setAttribute(`stroke-dasharray`, circleTimerParam.stroke);
+    timerLine.setAttribute(`stroke-dashoffset`, circleTimerParam.offset);
     timer.innerHTML = ``;
     timer.appendChild(getElementFromTemplate(this._templateTimer));
   }
