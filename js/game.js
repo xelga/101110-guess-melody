@@ -53,11 +53,10 @@ export default class Game {
         this._stopTimer();
         Application.showResult(this.model);
       } else {
+        if (this.model.gameState.time < 30) {
+          this._gameScreen.hurryUp();
+        }
         this._gameScreen.renderTimer();
-      }
-
-      if (this.model.gameState.time < 30) {
-        this._gameScreen.hurryUp();
       }
     }, 1000);
   }
