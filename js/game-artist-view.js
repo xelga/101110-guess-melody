@@ -36,6 +36,16 @@ export default class GameArtistView extends GameScreenView {
     return artistAnswersTemplate;
   }
 
+  debug() {
+    const answers = document.querySelectorAll(`.main-answer-wrapper`);
+
+    for (let i = 0; i < Object.keys(this.currentGameScreen.answers).length; i++) {
+      if (this.currentGameScreen.answers[`answer-${i + 1}`].isCorrect) {
+        answers[i].style.border = `1px dashed #000`;
+      }
+    }
+  }
+
   bind() {
     this.initializeAudio();
     super.bind();

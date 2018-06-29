@@ -33,6 +33,16 @@ export default class GameGenreView extends GameScreenView {
     return genreAnswersTemplate;
   }
 
+  debug() {
+    const answers = document.querySelectorAll(`.genre-answer`);
+
+    for (let i = 0; i < Object.keys(this.currentGameScreen.answers).length; i++) {
+      if (this.currentGameScreen.answers[`answer-${i + 1}`].isCorrect) {
+        answers[i].style.border = `1px dashed #000`;
+      }
+    }
+  }
+
   bind() {
     this.initializeAudio();
     super.bind();

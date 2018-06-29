@@ -21,6 +21,9 @@ export default class Game {
     this._startTimer();
     this._gameScreen.onPlayAgain = this._playAgain.bind(this);
     this._gameScreen.onAnswer = this._answer.bind(this);
+    if (this.model.gameConfig.debug) {
+      this._gameScreen.debug();
+    }
   }
 
   _updateGame() {
@@ -33,6 +36,9 @@ export default class Game {
     this._gameScreen.renderTimer();
     this._gameScreen.onPlayAgain = this._playAgain.bind(this);
     this._gameScreen.onAnswer = this._answer.bind(this);
+    if (this.model.gameConfig.debug) {
+      this._gameScreen.debug();
+    }
   }
 
   _getGameScreen() {
