@@ -24,6 +24,9 @@
     background-position: 0 -52px;
   }
 
+  &:disabled {
+    filter: grayscale(1);
+  }
 }
 
 @keyframes fadein {

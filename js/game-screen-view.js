@@ -1,7 +1,7 @@
 import {getElementFromTemplate, renderModal} from './util.js';
 import {getCircleTimerParam} from './data/get-circle-timer-param.js';
 import AbstractView from './abstract-view';
-import audio from './audio.js';
+import handleAudio from './audio.js';
 
 export default class GameScreenView extends AbstractView {
   constructor(gameConfig, gameState, currentGameScreen) {
@@ -96,7 +96,7 @@ export default class GameScreenView extends AbstractView {
   }
 
   initializeAudio() {
-    audio(this.element, this.currentGameScreen, this.currentGameScreen.type);
+    handleAudio(this.element, this.currentGameScreen, this.currentGameScreen.type);
   }
 
   showModalConfirm() {

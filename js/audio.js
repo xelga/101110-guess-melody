@@ -21,13 +21,25 @@ export default (gameScreenElement, currentGameScreen, gameType) => {
     audio.addEventListener(`error`, () => {
       throw new Error(`Failed to download audio`);
     });
-    status.textContent = `остановлен`;
+    status.textContent = `загружается`;
+    control.disabled = true;
 
     if (isFirst) {
       audio.addEventListener(`loadeddata`, () => {
+        const currentPlayerItems = document.querySelectorAll(`.player`);
+        if (!currentPlayerItems[0].contains(audio)) {
+          return;
+        }
+
+        control.disabled = false;
         audio.play();
         control.classList.add(`player-control--pause`);
         status.textContent = `запущен`;
+      });
+    } else {
+      audio.addEventListener(`loadeddata`, () => {
+        control.disabled = false;
+        status.textContent = `остановлен`;
       });
     }
 
@@ -38,7 +50,9 @@ export default (gameScreenElement, currentGameScreen, gameType) => {
         if (controlActive !== event.target) {
           controlActive.classList.remove(`player-control--pause`);
           controlActive.parentNode.querySelector(`audio`).pause();
-          controlActive.parentNode.querySelector(`.player-status`).textContent = `остановлен`;
+          if (controlActive.parentNode.querySelector(`.player-status`).textContent !== `загружается`) {
+            controlActive.parentNode.querySelector(`.player-status`).textContent = `остановлен`;
+          }
         }
       }
       event.target.classList.toggle(`player-control--pause`);
